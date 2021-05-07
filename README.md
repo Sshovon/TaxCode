@@ -12,7 +12,7 @@ $ cd ~/fabric-samples/fabrcar/javascript
 $ npm install
 ## Run following command to deploy chaincode
 $ cd ~/fabric-samples/fabrcar/
-$ ./startFabric.sh
+$ ./startFabric.sh javascript
 ## After deployment run following node files
 $ cd ./javascript/
 $ node enrollAdmin.js
