@@ -231,19 +231,6 @@ class FabCar extends Contract {
         return JSON.stringify(allResults);
     }
 
-    async changeCarOwner(ctx, carNumber, newOwner) {
-        console.info("============= START : changeCarOwner ===========");
-
-        const carAsBytes = await ctx.stub.getState(carNumber); // get the car from chaincode state
-        if (!carAsBytes || carAsBytes.length === 0) {
-            throw new Error(`${carNumber} does not exist`);
-        }
-        const car = JSON.parse(carAsBytes.toString());
-        car.owner = newOwner;
-
-        await ctx.stub.putState(carNumber, Buffer.from(JSON.stringify(car)));
-        console.info("============= END : changeCarOwner ===========");
-    }
     async updateTransaction(ctx,
         id,
         model,
@@ -326,6 +313,13 @@ class FabCar extends Contract {
                 );
             }
             companyTaxInfo.dueTax = parseInt(companyTaxInfo.taxToPay) - parseInt(companyTaxInfo.paidTax);
+        }
+        const taxToPay = parseInt(companyTaxInfo.taxToPay);
+        const paidTax = parseInt(companyTaxInfo.paidTax);    
+        if (paidTax >= taxToPay) {
+            companyTaxInfo.taxStatus = "Paid";
+        } else {
+            companyTaxInfo.taxStatus = "Due";
         }
 
         let companyTaxInfoJSONasBytes = Buffer.from(
