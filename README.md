@@ -8,14 +8,14 @@ $ ${HOME}db/bin/mongod --dbpath=${HOME}/mongodb-data
 ## Delete chaincode and fabcar from fabric-samples folder.
 ## Now put chaincode and fabcar in fabric-samples folder from this github repo.
 ## Run this command to install node-modules and dependecies
-$ cd ~/fabric-samples/fabrcar/javascript \n
+$ cd ~/fabric-samples/fabrcar/javascript 
 $ npm install
 ## Run following command to deploy chaincode
-$ cd ~/fabric-samples/fabrcar/
-$ ./startFabric.sh javascript
+$ cd ~/fabric-samples/fabrcar/ <br />
+$ ./startFabric.sh javascript 
 ## After deployment run following node files
-$ cd ./javascript/
-$ node enrollAdmin.js
+$ cd ./javascript/ <br />
+$ node enrollAdmin.js <br />
 $ node registerUser.js
 ## Now if you can run server by using following command
 $ npm run dev
