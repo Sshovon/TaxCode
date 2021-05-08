@@ -10,35 +10,44 @@ function myFunction() {
     return obj;
 }
 
-console.log(btn);
-
 btn.addEventListener("click", async function (e) {
     e.preventDefault();
-    try {
-        const userObj = myFunction();
-        const response = await fetch("/user/signup", {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify({
-                name: userObj.name,
-                email: userObj.email,
-                password: userObj.password,
-                revenue: userObj.revenue,
-                sharemarketvalue: userObj.sharemarketvalue,
-                manufacturingorigin: userObj.manufacturingorigin,
-                assemblingorigin: userObj.assemblingorigin,
-            }),
-        });
-        if (response.status === 200) {
-            alert("Client information successfully stored");
-            window.location.assign("/user/signin");  
-        } 
-    } catch (e) {
-        alert("Registration failed!");
-        console.log(e);
+    const userObj = myFunction();
+    if (userObj.manufacturingorigin  === "" || userObj.assemblingorigin ==="" || userObj.name ==="" || userObj.password ==="" || userObj.revenue ==="" || userObj.sharemarketvalue ==="" || userObj.email ==="") {
+        alert("Please fillup all required informations");
+        //location.reload();
+    }else {
+        try {
+            const response = await fetch("/user/signup", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: userObj.name,
+                    email: userObj.email,
+                    password: userObj.password,
+                    revenue: userObj.revenue,
+                    sharemarketvalue: userObj.sharemarketvalue,
+                    manufacturingorigin: userObj.manufacturingorigin,
+                    assemblingorigin: userObj.assemblingorigin,
+                }),
+            });
+            if (response.status === 200) {
+                alert("Client information successfully stored");
+                window.location.assign("/user/signin");  
+            } else {
+                alert("Registration failed!");
+                location.reload();
+            } 
+        } catch (e) {
+            alert("Registration failed!");
+            location.reload();
+            console.log(e);
+        }   
     }
+
+    
 });
 
 

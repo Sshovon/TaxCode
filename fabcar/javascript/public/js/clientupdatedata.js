@@ -25,36 +25,41 @@ const id = document.getElementById('id').placeholder;
 
 
 btn.addEventListener("click", async function(e){
-    try {
-        e.preventDefault();
-        const obj = myFunction();
-        const response = await fetch("/user/client/notification", {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify({
-                name: cookie,
-                id: id,
-                modelName: obj.modelName,
-                perUnitCost: obj.perUnitCost,
-                unitNumber: obj.unitNumber,
-                reason: obj.reason,
-                prevModelName: prevModel,
-                prevPerUnitCost: prevPerUnitCost,
-                prevUnitNumber: prevUnitNumber
-            }),
-        });
-       
-        if (response.status === 200){
-            alert('Update request successfully sent');
-            window.location = '/user/client';
-        } else {
-            alert("Update request failed");
-            window.location = '/user/client';
+    e.preventDefault();
+    const obj = myFunction();
+        
+    if (obj.modelName==="" || obj.perUnitCost==="" || obj.unitNumber==="" || obj.reason==="") {
+        alert("please fillup all required information");
+    } else {
+        try {
+            const response = await fetch("/user/client/notification", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: cookie,
+                    id: id,
+                    modelName: obj.modelName,
+                    perUnitCost: obj.perUnitCost,
+                    unitNumber: obj.unitNumber,
+                    reason: obj.reason,
+                    prevModelName: prevModel,
+                    prevPerUnitCost: prevPerUnitCost,
+                    prevUnitNumber: prevUnitNumber
+                }),
+            });
+           
+            if (response.status === 200){
+                alert('Update request successfully sent');
+                window.location = '/user/client';
+            } else {
+                alert("Update request failed");
+                window.location = '/user/client';
+            }
+     
+        } catch (e) {
+            console.log(e);
         }
- 
-    } catch (e) {
-        console.log(e);
     }
 })

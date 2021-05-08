@@ -12,8 +12,13 @@ function myFunction() {
 
 btn.addEventListener("click", async function (e) {
     e.preventDefault();
+    const userObj = myFunction();
+    if (userObj.name==="" || userObj.email==="" || userObj.password==="") {
+        alert("Please fillup all required informations");
+        ///location.reload();
+    } else {
+        
     try {
-        const userObj = myFunction();
         const response = await fetch("/admin/signup", {
             method: "POST",
             headers: {
@@ -38,5 +43,6 @@ btn.addEventListener("click", async function (e) {
         
     } catch (err) {
         console.log(err);
+    }
     }
 });

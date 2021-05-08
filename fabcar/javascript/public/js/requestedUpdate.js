@@ -43,8 +43,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         const reqCost = outer.querySelector('.rc').innerText.split(": ")[1];
 
         acceptBtn.addEventListener("click", async function () {
-            await fetch(`/user/client/updatetransaction`,{
-                method: "PATCH",
+            await fetch('/user/client/updatetransaction',{
+                method: "POST",
                 headers: {
                     "Content-type": "application/json",
                 },
@@ -53,8 +53,10 @@ document.addEventListener("DOMContentLoaded", async function () {
                     modelName: reqModel,
                     unit: reqUnit,
                     cost: reqCost,
+                    companyName:companyName,
                 }),
             })
+            
 
             const prevData = parseInt(prevUnit) * parseInt(prevCost);
             const curData = parseInt(reqUnit) * parseInt(reqCost);

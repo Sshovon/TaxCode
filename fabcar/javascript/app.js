@@ -219,33 +219,6 @@ app.post("/user/client/paytax", auth, async (req, res) => {
     }
 });
 
-app.post('/user/admin/deltax', async (req, res) => {
-    try {
-        var contract = (await init).getInput();
-        var contract = contract.contact;
-        var gateway = contract.gateway;        
-        
-        await contract.submitTransaction(
-            "taxStatusUpdate",
-            req.body.companyName,
-            req.body.prevData,
-            "deltax",
-        );
-        await contract.submitTransaction(
-            "taxStatusUpdate",
-            req.body.companyName,
-            req.body.curData,
-            "updatetax",
-        );
-
-         await Notification.findOneAndDelete({ id: req.body.id });
-    
-        res.status(200).send("success");
-    } catch (e) {
-        res.status(400).send(e);
-    }
-})
-
 
 app.get("/user/client/checkData", auth, async (req, res) => {
     try {
@@ -314,22 +287,18 @@ app.get("/user/client/updatedata/:id", auth, async (req, res) => {
     });
 });
 
-app.patch("/user/client/updatetransaction", auth, async (req, res) => {
+app.post("/user/client/updatetransaction", auth, async (req, res) => {
     try {
         var contract = (await init).getInput();
         var contract = contract.contact;
         var gateway = contract.gateway;
-        const response =await contract.submitTransaction(
+        await contract.submitTransaction(
             "updateTransaction",
             req.body.id,
-            req.body.modeName,
+            req.body.modelName,
             req.body.unit,
             req.body.cost
         );
-
-        const data = await response.json();
-        console.log(data);
-
         res.status(200).send("success");
     } catch (e) {
         res.status(400).send(e);
@@ -432,6 +401,33 @@ app.post("/user/admin/request/decline", auth, async (req, res) => {
     const noti = await Notification.findOneAndDelete({ id: req.body.id });
     res.status(200).send("success");
 });
+
+app.post('/user/admin/deltax', async (req, res) => {
+    try {
+        var contract = (await init).getInput();
+        var contract = contract.contact;
+        var gateway = contract.gateway;        
+        
+        await contract.submitTransaction(
+            "taxStatusUpdate",
+            req.body.companyName,
+            req.body.prevData,
+            "deltax",
+        );
+        await contract.submitTransaction(
+            "taxStatusUpdate",
+            req.body.companyName,
+            req.body.curData,
+            "updatetax",
+        );
+
+         await Notification.findOneAndDelete({ id: req.body.id });
+    
+        res.status(200).send("success");
+    } catch (e) {
+        res.status(400).send(e);
+    }
+})
 
 app.get("/user/admin/:id", auth, async (req, res) => {
     try {

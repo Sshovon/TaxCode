@@ -3,26 +3,31 @@ const saveBtn = document.querySelector(".save-transaction");
 saveBtn.addEventListener("click", async function (e) {
     e.preventDefault();
     const transactionObj = myFunction();
-
-    const response = await fetch("/user/client/adddata", {
-        method: "POST",
-        headers: {
-            "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-            modelName: transactionObj.modelname,
-            numberOfUnit: transactionObj.totalunit,
-            perUnitValue: transactionObj.costperitem,
-        }),
-    });
-
-    if (response.status === 200) {
-        alert("Transaction successful");
-        window.location = "/user/client";
+    if (transactionObj.modelName===""|| transactionObj.totalunit===""|| transactionObj.costperitem==="") {
+        alert("Please fill up all required informations");
+        //location.reload();
     } else {
-        alert("Transaction failed");
-        location.reload();
+        const response = await fetch("/user/client/adddata", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                modelName: transactionObj.modelname,
+                numberOfUnit: transactionObj.totalunit,
+                perUnitValue: transactionObj.costperitem,
+            }),
+        });
+    
+        if (response.status === 200) {
+            alert("Transaction successful");
+            window.location = "/user/client";
+        } else {
+            alert("Transaction failed");
+            location.reload();
+        }
     }
+    
 });
 function myFunction() {
     var elements = document.getElementById("add-transaction").elements;
