@@ -1,7 +1,7 @@
 # TaxCode
 ## Run this command to clone hyper-ledger fabric  
 $ curl -sSL https://bit.ly/2ysbOFE | bash -s
-## You need node version 10.19.0 to run this project
+## You need node version 10.19.0 or higher to run this project
 ## Install mongodb community server on your home folder
 ## Run this command to initiate mongodb community server 
 $ ${HOME}db/bin/mongod --dbpath=${HOME}/mongodb-data
