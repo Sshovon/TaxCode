@@ -1,7 +1,7 @@
 # TaxCode
 ## Clone this repository.
 
-## Run this command to install node-modules and dependecies
+## Run following command to install node-modules and dependecies
 $ cd ~/fabric-samples/fabrcar/javascript  <br />
 $ npm install
 
@@ -15,6 +15,6 @@ $ cd ./javascript/ <br />
 $ node enrollAdmin.js <br />
 $ node registerUser.js
 
-## Now if you can run server by using following command
+## Now, if you can run server by using following command
 $ npm run dev
 ## You have to create admin and user separately to use both side of TaxCode webapp.
